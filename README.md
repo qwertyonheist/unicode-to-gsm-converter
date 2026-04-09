@@ -41,18 +41,3 @@ Perfect for developers, marketers, and businesses sending SMS who want to **opti
 - 📋 **Copy Output Button**
 
 ---
-
-## 🚀 Live Preview
-
-You can host it easily using:
-- GitHub Pages
-- Netlify
-- Vercel
-
----
-
-## 📦 Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/unicode-gsm-converter.git
