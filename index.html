@@ -8,6 +8,12 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <style>
+  :root {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   :root[data-theme="dark"] {
     --bg: #0f0f13;
     --surface: #1a1a23;
@@ -67,7 +73,7 @@
     font-size: 16px;
     min-height: 100vh;
     padding: 24px 20px 60px;
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out);
   }
 
   /* ─── Layout ─── */
@@ -139,7 +145,7 @@
     border-radius: 50%;
     background: var(--toggle-knob);
     box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s;
+    transition: transform 0.22s var(--ease-out), background 0.22s var(--ease-out);
   }
 
   .toggle-track.on .toggle-knob { transform: translateX(20px); }
@@ -165,11 +171,20 @@
     padding: 9px 18px;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.15s var(--ease-out), border-color 0.15s var(--ease-out), color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out), transform 0.1s var(--ease-out);
     letter-spacing: 0.01em;
     box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .mode-btn:hover::after { opacity: 1; }
+  }
+
+  .mode-btn:active {
+    transform: scale(0.97);
+    transition: transform 0.08s var(--ease-out), background 0.08s var(--ease-out);
   }
 
   .mode-btn .material-icons { font-size: 18px; }
@@ -180,17 +195,16 @@
     inset: 0;
     background: var(--ripple);
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.15s var(--ease-out);
     border-radius: inherit;
   }
-
-  .mode-btn:hover::after { opacity: 1; }
 
   .mode-btn.active {
     background: var(--accent-light);
     border-color: var(--accent-border);
     color: var(--accent);
     box-shadow: 0 0 0 1px var(--accent-border), var(--shadow);
+    transition: background 0.18s var(--ease-out), border-color 0.18s var(--ease-out), color 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out), transform 0.1s var(--ease-out);
   }
 
   /* ─── Grid ─── */
@@ -213,7 +227,7 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: background 0.3s, border-color 0.3s;
+    transition: background 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
   }
 
   .card-header {
@@ -223,7 +237,7 @@
     padding: 14px 18px;
     border-bottom: 1px solid var(--border);
     background: var(--surface2);
-    transition: background 0.3s;
+    transition: background 0.25s var(--ease-out);
   }
 
   .card-label {
@@ -260,15 +274,28 @@
     padding: 5px 12px;
     border-radius: 6px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.15s var(--ease-out), border-color 0.15s var(--ease-out), color 0.15s var(--ease-out), transform 0.1s var(--ease-out);
   }
 
   .icon-btn .material-icons { font-size: 16px; }
 
-  .icon-btn:hover {
-    border-color: var(--accent-border);
-    color: var(--accent);
-    background: var(--accent-light);
+  @media (hover: hover) and (pointer: fine) {
+    .icon-btn:hover {
+      border-color: var(--accent-border);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+  }
+
+  .icon-btn.copied {
+    border-color: rgba(76,175,138,0.4);
+    color: var(--green);
+    background: var(--green-light);
+  }
+
+  .icon-btn:active {
+    transform: scale(0.96);
+    transition: transform 0.08s var(--ease-out);
   }
 
   textarea {
@@ -282,8 +309,10 @@
     font-size: 16px;
     line-height: 1.75;
     padding: 18px;
-    resize: vertical;
+    resize: none;
+    overflow: hidden;
     caret-color: var(--accent);
+    display: block;
   }
 
   textarea::placeholder { color: var(--text-disabled); }
@@ -389,6 +418,7 @@
     letter-spacing: -0.02em;
     line-height: 1;
     color: var(--text-primary);
+    overflow: hidden;
   }
 
   .sms-metric-value.accent { color: var(--accent); }
@@ -445,7 +475,7 @@
   .part-bar-fill {
     height: 100%;
     border-radius: 3px;
-    transition: width 0.45s cubic-bezier(0.4,0,0.2,1);
+    transition: width 0.3s var(--ease-out);
     min-width: 0;
   }
 
@@ -475,7 +505,7 @@
     border-radius: 12px;
     padding: 18px 20px;
     box-shadow: var(--shadow);
-    transition: background 0.3s;
+    transition: background 0.25s var(--ease-out);
   }
 
   .stat-label {
@@ -498,6 +528,7 @@
     letter-spacing: -0.02em;
     color: var(--text-primary);
     line-height: 1;
+    overflow: hidden;
   }
 
   .stat-value.accent { color: var(--accent); }
@@ -556,10 +587,13 @@
     border-radius: 8px;
     padding: 8px 12px;
     gap: 3px;
-    transition: all 0.15s;
+    transition: border-color 0.15s var(--ease-out), background 0.15s var(--ease-out);
+    animation: chipIn 0.25s var(--ease-out) both;
   }
 
-  .char-chip:hover { border-color: var(--warn); transform: translateY(-1px); }
+  @media (hover: hover) and (pointer: fine) {
+    .char-chip:hover { border-color: var(--warn); background: rgba(239,108,74,0.18); }
+  }
 
   .char-chip .ch {
     font-family: 'Roboto Mono', monospace;
@@ -624,9 +658,11 @@
     border-bottom: 1px solid var(--border);
   }
 
-  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s var(--ease-out); }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: var(--surface2); }
+  @media (hover: hover) and (pointer: fine) {
+    tbody tr:hover { background: var(--surface2); }
+  }
 
   tbody td {
     padding: 12px 16px;
@@ -640,7 +676,93 @@
   tbody td:nth-child(3) { color: var(--green); font-size: 18px; }
   tbody td:nth-child(4) { color: var(--text-secondary); font-family: 'Roboto', sans-serif; font-size: 14px; }
 
-  /* ─── Encoding Badge ─── */
+  /* ─── Keyframes ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes chipIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes statFlip {
+    0%   { opacity: 1; transform: translateY(0); }
+    40%  { opacity: 0; transform: translateY(-6px); }
+    60%  { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Page-load entrance ─── */
+  .top-bar {
+    animation: fadeUp 0.4s var(--ease-out) both;
+    animation-delay: 0ms;
+  }
+
+  .mode-bar {
+    animation: fadeUp 0.4s var(--ease-out) both;
+    animation-delay: 60ms;
+  }
+
+  .grid {
+    animation: fadeUp 0.4s var(--ease-out) both;
+    animation-delay: 120ms;
+  }
+
+  .sms-compare {
+    animation: fadeUp 0.35s var(--ease-out) both;
+    animation-delay: 160ms;
+  }
+
+  .stats-bar {
+    animation: fadeUp 0.35s var(--ease-out) both;
+    animation-delay: 200ms;
+  }
+
+  /* ─── Stat cards — keep existing stagger but via stats-bar children ─── */
+  .stat-card {
+    animation: fadeUp 0.3s var(--ease-out) both;
+  }
+  .stat-card:nth-child(1) { animation-delay: 210ms; }
+  .stat-card:nth-child(2) { animation-delay: 245ms; }
+  .stat-card:nth-child(3) { animation-delay: 280ms; }
+  .stat-card:nth-child(4) { animation-delay: 315ms; }
+
+  /* ─── Stat value flip on change ─── */
+  .stat-value.animating {
+    animation: statFlip 0.22s var(--ease-out) both;
+  }
+
+  /* ─── Output area fade-in only on first content appearance ─── */
+  .output-area[data-appearing] {
+    animation: fadeIn 0.18s var(--ease-out) both;
+  }
+
+  /* ─── Savings row transition ─── */
+  .savings-row {
+    transition: background 0.2s var(--ease-out), border-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+
+  /* ─── Section header reveal ─── */
+  .section-header {
+    animation: fadeUp 0.35s var(--ease-out) both;
+    animation-delay: 340ms;
+  }
+
+  /* ─── Reduced motion ─── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   .enc-badge {
     display: inline-flex;
     align-items: center;
@@ -919,6 +1041,24 @@ const REPLACEMENT_MAP = new Map(REPLACEMENTS.map(r => [r.from, r]));
 let currentMode = 'replace';
 let isDark = true;
 
+// ── Animated stat value update ────────────────────────────────────────────────
+function animateStat(id, newVal) {
+  const el = document.getElementById(id);
+  if (el.textContent === String(newVal)) return; // no change, no flash
+  el.classList.remove('animating');
+  // Force reflow to restart animation
+  void el.offsetWidth;
+  el.textContent = newVal;
+  el.classList.add('animating');
+  el.addEventListener('animationend', () => el.classList.remove('animating'), { once: true });
+}
+
+// ── Auto-resize textarea ─────────────────────────────────────────────────────
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.max(450, el.scrollHeight) + 'px';
+}
+
 // ── Theme ────────────────────────────────────────────────────────────────────
 function toggleTheme() {
   isDark = !isDark;
@@ -940,6 +1080,7 @@ function setMode(m) {
 // ── Core conversion ──────────────────────────────────────────────────────────
 function convert() {
   const raw = document.getElementById('inputText').value;
+  autoResize(document.getElementById('inputText'));
 
   if (!raw) { reset(); return; }
 
@@ -948,8 +1089,9 @@ function convert() {
   const nonGsmFound  = new Map(); // ch → { count, code }
   const appliedReps  = new Set();
 
-  // Decompose raw into codepoint-safe array (handles surrogate pairs / emoji)
-  const chars = [...raw];
+  // Decompose raw into grapheme clusters (handles ZWJ emoji sequences, flags, etc.)
+  const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+  const chars = [...segmenter.segment(raw)].map(s => s.segment);
 
   for (const ch of chars) {
     // Handle emojis based on mode
@@ -1010,8 +1152,9 @@ function convert() {
 
   // ── Render output (with highlights in 'keep' mode) ──────────────────────
   const outputEl = document.getElementById('outputArea');
+  const wasEmpty = outputEl.classList.contains('empty');
+
   if (currentMode === 'keep' && nonGsmFound.size > 0) {
-    // Build highlighted HTML
     let html = '';
     for (const r of charResults) {
       if (r.isNonGsm) {
@@ -1029,9 +1172,17 @@ function convert() {
     if (!outputStr) outputEl.textContent = 'GSM output will appear here…';
   }
 
+  // Fade in only when transitioning from empty → has content
+  if (wasEmpty && outputStr) {
+    outputEl.removeAttribute('data-appearing');
+    void outputEl.offsetWidth; // force reflow to restart animation
+    outputEl.setAttribute('data-appearing', '');
+    outputEl.addEventListener('animationend', () => outputEl.removeAttribute('data-appearing'), { once: true });
+  }
+
   // ── SMS Comparison Panel ──────────────────────────────────────────────────
   // Calculate INPUT stats (raw text, treat all non-GSM as unicode encoding)
-  const rawChars = [...raw];
+  const rawChars = [...segmenter.segment(raw)].map(s => s.segment);
   const rawHasUnicode = rawChars.some(ch => !isGsm(ch));
   let rawWeight = 0;
   for (const ch of rawChars) {
@@ -1047,8 +1198,8 @@ function convert() {
     ? Math.min(100, Math.round((rawWeight / inSingleLimit) * 100))
     : Math.min(100, Math.round(((rawWeight % inMultiLimit || inMultiLimit) / inMultiLimit) * 100));
 
-  document.getElementById('cmpInChars').textContent   = rawWeight;
-  document.getElementById('cmpInParts').textContent   = inParts;
+  animateStat('cmpInChars', rawWeight);
+  animateStat('cmpInParts', inParts);
   document.getElementById('cmpInPartsNote').textContent = rawHasUnicode ? `Unicode (${inSingleLimit}/SMS)` : `GSM-7 (${inSingleLimit}/SMS)`;
   document.getElementById('cmpInEnc').innerHTML       = rawHasUnicode
     ? '<span class="enc-badge unicode">Unicode</span>'
@@ -1065,8 +1216,8 @@ function convert() {
     ? Math.min(100, Math.round((totalWeight / outSingleLimit) * 100))
     : Math.min(100, Math.round(((totalWeight % outMultiLimit || outMultiLimit) / outMultiLimit) * 100));
 
-  document.getElementById('cmpOutChars').textContent   = totalWeight;
-  document.getElementById('cmpOutParts').textContent   = parts;
+  animateStat('cmpOutChars', totalWeight);
+  animateStat('cmpOutParts', parts);
   document.getElementById('cmpOutPartsNote').textContent = hasUnicodeOutput ? `Unicode (${outSingleLimit}/SMS)` : `GSM-7 (${outSingleLimit}/SMS)`;
   document.getElementById('cmpOutEnc').innerHTML       = hasUnicodeOutput
     ? '<span class="enc-badge unicode">Unicode</span>'
@@ -1098,12 +1249,12 @@ function convert() {
   }
 
 
-  document.getElementById('statChars').textContent = totalWeight;
-  document.getElementById('statParts').textContent = parts;
+  animateStat('statChars', totalWeight);
+  animateStat('statParts', parts);
   document.getElementById('statPartsNote').textContent = hasUnicodeOutput
     ? `Unicode (${singleLimit} chars/SMS)`
     : `GSM-7 (${singleLimit} chars/SMS)`;
-  document.getElementById('statNonGsm').textContent = nonGsmFound.size;
+  animateStat('statNonGsm', nonGsmFound.size);
 
   const encEl   = document.getElementById('statEncoding');
   const encNote = document.getElementById('statEncodingNote');
@@ -1121,9 +1272,11 @@ function convert() {
   if (nonGsmFound.size === 0) {
     listEl.innerHTML = '<span class="empty-notice"><span class="material-icons">check_circle</span>All characters are GSM-7 compatible</span>';
   } else {
+    let i = 0;
     nonGsmFound.forEach((info, ch) => {
       const chip = document.createElement('div');
       chip.className = 'char-chip';
+      chip.style.animationDelay = `${i * 40}ms`;
       chip.innerHTML = `<span class="ch">${escHtml(ch)}</span><span class="cp">U+${info.code}</span>`;
       if (info.count > 1) {
         const cnt = document.createElement('span');
@@ -1132,6 +1285,7 @@ function convert() {
         chip.appendChild(cnt);
       }
       listEl.appendChild(chip);
+      i++;
     });
   }
 
@@ -1155,7 +1309,9 @@ function convert() {
 }
 
 function trackNonGsm(map, ch) {
-  const code = ch.codePointAt(0).toString(16).toUpperCase().padStart(4,'0');
+  // For multi-codepoint sequences (ZWJ emoji, flags), show first codepoint + indicator
+  const cps = [...ch].map(c => c.codePointAt(0).toString(16).toUpperCase().padStart(4,'0'));
+  const code = cps.length > 1 ? cps[0] + '+' : cps[0];
   if (map.has(ch)) { map.get(ch).count++; }
   else { map.set(ch, { count: 1, code }); }
 }
@@ -1188,7 +1344,9 @@ function reset() {
 }
 
 function clearInput() {
-  document.getElementById('inputText').value = '';
+  const el = document.getElementById('inputText');
+  el.value = '';
+  el.style.height = '450px';
   reset();
 }
 
@@ -1199,10 +1357,14 @@ function copyOutput() {
   navigator.clipboard.writeText(txt).then(() => {
     const btn = document.getElementById('copyOutputBtn');
     btn.innerHTML = '<span class="material-icons">check</span> Copied!';
-    setTimeout(() => btn.innerHTML = '<span class="material-icons">content_copy</span> Copy', 1600);
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '<span class="material-icons">content_copy</span> Copy';
+      btn.classList.remove('copied');
+    }, 1200);
   });
 }
 </script>
-<footer style="text-align:center;padding:0.75rem;font-size:0.65rem;color:#444;letter-spacing:0.05em;">Copyright © 2026 <a href="https://github.com/qwertyonheist" target="_blank" style="color:#444;text-decoration:underline;">qwertyonheist</a></footer>
+<footer style="text-align:center;padding:0.75rem;font-size:0.65rem;color:var(--text-disabled);letter-spacing:0.05em;">Copyright © 2026 <a href="https://github.com/qwertyonheist" target="_blank" style="color:var(--text-secondary);text-decoration:underline;">qwertyonheist</a></footer>
 </body>
 </html>
